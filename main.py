@@ -17,7 +17,7 @@ async def ping(ctx):
 
 @client.command()
 async def battle(ctx, opponent):
-
+    opponent_id = opponent[2:-1]
     # INVITE OPPONENT TO PLAY
 
     invitation = await ctx.channel.send('{}, {} has challenged you to card jitsu!\nOpponent must accept within 15 seconds or invitation is forfeit.'.format(opponent, ctx.message.author.mention))
@@ -25,18 +25,20 @@ async def battle(ctx, opponent):
     await invitation.add_reaction('❌')
 
     def check(reaction, user):
-        return user == opponent and str(reaction.emoji) in ["✅"] and reaction.message == invitation
+        print(user.id)
+        return str(user.id) == str(opponent_id) and str(reaction.emoji) in ["✅"] and reaction.message == invitation
 
     try:
         confirmation = await client.wait_for("reaction_add", check=check, timeout=15)
 
     except asyncio.TimeoutError:
         await ctx.channel.send('Ran out of time!')
-        return
 
     if confirmation:
         await ctx.channel.send('Opponent accepted... starting game.')
 
+    else:
+        print(confirmation)
     # COMMENCE GAMING
 
     def create_deck(n, player):
