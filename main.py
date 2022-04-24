@@ -2,8 +2,9 @@ import discord
 from discord.ext import commands
 import asyncio
 import random
+import time
 
-client = commands.Bot(command_prefix = '*')
+client = commands.Bot(command_prefix = '*', case_insensitive=True)
 
 @client.event
 async def on_ready():
@@ -53,7 +54,6 @@ async def battle(ctx, opponent):
     #home_deck = player 1 guest_deck = player 2
     home_deck = create_deck(5, ctx.message.author)
     guest_deck = create_deck(5, opponent)
-
 
 with open(r'C:\Users\Luke\Desktop\jitsu_token.txt') as f:
     client.run(f.read())
