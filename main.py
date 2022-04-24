@@ -34,7 +34,7 @@ async def battle(ctx, opponent):
         return
 
     if confirmation:
-        await ctx.channel.send('bitches in the house')
+        await ctx.channel.send('Opponent accepted... starting game.')
 
     # COMMENCE GAMING
 
